@@ -9,9 +9,11 @@ class Omni < Formula
   depends_on "node"
 
   def install
-    # Build Native Binary and Wasm Binary using Zig build system
-    system "zig", "build", "-Doptimize=ReleaseFast", "-p", "."
-    system "zig", "build", "wasm", "-Doptimize=ReleaseSmall"
+    # Run builds from the 'core' directory
+    Dir.chdir("core") do
+      system "zig", "build", "-Doptimize=ReleaseFast", "-p", "../"
+      system "zig", "build", "wasm", "-Doptimize=ReleaseSmall"
+    end
 
     # Install Native Binary
     bin.install "bin/omni"
