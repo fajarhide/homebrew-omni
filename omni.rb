@@ -1,8 +1,8 @@
 class Omni < Formula
   desc "Semantic Distillation Engine for the Agentic Era"
   homepage "https://github.com/fajarhide/omni"
-  url "https://github.com/fajarhide/omni/archive/refs/tags/v0.1.0.tar.gz"
-  sha256 "fa89be5e5797fa0c66e12527eea93e4d61d49faba98d60d377b88500d6c521bf"
+  url "https://github.com/fajarhide/omni/archive/refs/tags/v0.1.2.tar.gz"
+  sha256 "79ca476b3ce7fa0764fc1bd34768e2480258e7dd9a1bc20ceb3cf4b61427778f"
   license "MIT"
 
   depends_on "zig" => :build
@@ -25,12 +25,10 @@ class Omni < Formula
     (bin/"omni-mcp").write <<~EOS
       #!/bin/bash
       export OMNI_WASM_PATH="#{lib}/omni/omni-wasm.wasm"
-      node "#{prefix}/libexec/dist/index.js" "$@"
+      node "#{libexec}/dist/index.js" "$@"
     EOS
     
-    libexec.install Dir["dist/*"]
-    libexec.install "package.json"
-    libexec.install "node_modules"
+    libexec.install "dist", "package.json", "node_modules"
   end
 
   test do
